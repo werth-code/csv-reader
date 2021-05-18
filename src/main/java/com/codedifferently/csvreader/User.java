@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 
 public class User {
 
-    @CsvBindByName // should allow us to map this data from CSV to the properties.
+    @CsvBindByName
     private long id;
     @CsvBindByName
     private String name;
@@ -14,6 +14,9 @@ public class User {
     private String countryCode;
     @CsvBindByName
     private int age;
+
+    public User() {
+    }
 
     public User(long id, String name, String email, String countryCode, int age) {
         this.id = id;
@@ -61,5 +64,16 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", age=" + age +
+                '}';
     }
 }
