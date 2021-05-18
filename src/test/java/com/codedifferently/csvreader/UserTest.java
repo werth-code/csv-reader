@@ -1,7 +1,6 @@
 package com.codedifferently.csvreader;
 
-import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
+import models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

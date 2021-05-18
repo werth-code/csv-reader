@@ -1,4 +1,4 @@
-package com.codedifferently.csvreader;
+package models;
 
 import com.opencsv.bean.CsvBindByName;
 
