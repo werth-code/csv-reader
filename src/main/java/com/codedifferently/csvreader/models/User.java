@@ -1,36 +1,39 @@
-package models;
+package com.codedifferently.csvreader.models;
 
 import com.opencsv.bean.CsvBindByName;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.AUTO) // may need config
+
+    //@GeneratedValue(strategy = GenerationType.AUTO) // may need config
     @CsvBindByName
+    @Id
     private long id;
     @CsvBindByName
     private String name;
     @CsvBindByName
     private String email;
     @CsvBindByName(column = "country")
-    private String countryCode;
+    private String country;
     @CsvBindByName
     private int age;
 
-    public User() {
-    }
+    public User() {}
 
-    public User(long id, String name, String email, String countryCode, int age) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.countryCode = countryCode;
-        this.age = age;
-    }
+//    public User(long id, String name, String email, String countryCode, int age) {
+//        this.id = id;
+//        this.name = name;
+//        this.email = email;
+//        this.countryCode = countryCode;
+//        this.age = age;
+//    }
 
     public long getId() {
         return id;
@@ -57,11 +60,11 @@ public class User {
     }
 
     public String getCountryCode() {
-        return countryCode;
+        return country;
     }
 
     public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+        this.country = countryCode;
     }
 
     public int getAge() {
@@ -78,7 +81,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", countryCode='" + countryCode + '\'' +
+                ", countryCode='" + country + '\'' +
                 ", age=" + age +
                 '}';
     }

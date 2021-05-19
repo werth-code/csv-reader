@@ -1,16 +1,15 @@
-package services;
+package com.codedifferently.csvreader.services;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import models.User;
+import com.codedifferently.csvreader.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
-import repositories.UserRepository;
+import com.codedifferently.csvreader.repositories.UserRepository;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
@@ -50,7 +49,7 @@ public class UploadService {
             model.addAttribute("status", true);
 
             // save to database
-            // saveUsers(users);
+            saveUsers(users);
 
             return users;
 
@@ -65,7 +64,7 @@ public class UploadService {
         return userRepository.findAll();
     }
 
-    public void saveUsers(List<User> users) {
+    private void saveUsers(List<User> users) {
         userRepository.saveAll(users);
     }
 
