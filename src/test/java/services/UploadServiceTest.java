@@ -1,5 +1,9 @@
 package services;
 
+import junitparams.FileParameters;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.mappers.CsvWithHeaderMapper;
 import models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,17 +26,18 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@RunWith(JUnitParamsRunner.class)
 class UploadServiceTest {
 
     UploadService uploadService;
-    MultipartFile multipartFile;
+    MultipartFile result;
 
     @BeforeEach
-    @CsvFileSource(resources = "/names2.csv")
     void setUp() {
         uploadService = new UploadService();
-        Path path = Paths.get("/path/to/the/file.txt");
-        String name = "file.txt";
+
+        Path path = Paths.get("src/main/resources/names2.csv");
+        String name = "names2.csv";
         String originalFileName = "file.txt";
         String contentType = "text/plain";
         byte[] content = null;
@@ -40,22 +45,25 @@ class UploadServiceTest {
             content = Files.readAllBytes(path);
         } catch (final IOException e) {
         }
-        MultipartFile result = new MockMultipartFile(name,
+        result = new MockMultipartFile(name,
                 originalFileName, contentType, content);
     }
 
 
     @Test
+    //@Parameters() // allows us to pass in custom parameters
+    @FileParameters(value = "src/main/resources/names2.csv", mapper = CsvWithHeaderMapper.class)
     void upload() {
-
     }
 
     @Test
     void fileIsEmpty() {
-
+        boolean actual = uploadService.fileIsEmpty(result);
+        assertFalse(actual);
     }
 
     @Test
     void parseCSV() {
+
     }
 }
