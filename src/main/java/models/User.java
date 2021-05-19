@@ -2,8 +2,14 @@ package models;
 
 import com.opencsv.bean.CsvBindByName;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+@Entity
 public class User {
 
+    @GeneratedValue(strategy = GenerationType.AUTO) // may need config
     @CsvBindByName
     private long id;
     @CsvBindByName
