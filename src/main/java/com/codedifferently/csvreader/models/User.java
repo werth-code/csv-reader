@@ -27,13 +27,13 @@ public class User {
 
     public User() {}
 
-//    public User(long id, String name, String email, String countryCode, int age) {
-//        this.id = id;
-//        this.name = name;
-//        this.email = email;
-//        this.countryCode = countryCode;
-//        this.age = age;
-//    }
+    public User(long id, String name, String email, String country, int age) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.country = country;
+        this.age = age;
+    }
 
     public long getId() {
         return id;

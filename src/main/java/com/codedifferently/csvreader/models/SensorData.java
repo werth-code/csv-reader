@@ -25,6 +25,43 @@ public class SensorData {
         this.sensorReading2 = sensorReading2;
     }
 
+    public long getTestId() {
+        return testId;
+    }
 
+    public void setTestId(long testId) {
+        this.testId = testId;
+    }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public long getShoeId() {
+        return shoeId;
+    }
+
+    public void setShoeId(long shoeId) {
+        this.shoeId = shoeId;
+    }
+
+    public double getSensorReading1() {
+        return sensorReading1;
+    }
+
+    public void setSensorReading1(double sensorReading1) {
+        this.sensorReading1 = sensorReading1;
+    }
+
+    public double getSensorReading2() {
+        return sensorReading2;
+    }
+
+    public void setSensorReading2(double sensorReading2) {
+        this.sensorReading2 = sensorReading2;
+    }
 }
