@@ -50,7 +50,7 @@ public class UploadService {
 
             // save to database
             saveUsers(users);
-
+            users.forEach(System.out::println);
             return users;
 
         } catch (Exception ex) {
