@@ -15,7 +15,7 @@ public class CsvMapService {
 
         //"names 2.csv" // simple test data
         //"test1.csv" // real data with tweaks
-        String fileName = "/Users/m21/dev/csv/test1.csv"; // this imports a csv list
+        String fileName = "/Users/m21/dev/csv/testDuplicateHeader.csv"; // this imports a csv list
         try (CSVReader reader = new CSVReader(new FileReader(fileName))) {  // CSV Reader plugin
 
             List<String[]> data = reader.readAll(); // What CSV Reader returns to us
@@ -26,11 +26,14 @@ public class CsvMapService {
                 allUsers.add(addUser(keys, current)); // add to user list the map returned from function --> calls function
             }
 
+            // remove or limit empty properties?
+
+            System.out.println(Arrays.toString(keys));
             printAllObjects(data);
             allUsers.forEach(System.out::println); // prints out all of our data
             System.out.println("\n");
 
-            allUsers.get(1).forEach((s, s2) -> System.out.println("Key: " + s + " | Value: " + s2));
+            allUsers.get(allUsers.size() -1).forEach((s, s2) -> System.out.println("Key: " + s + " | Value: " + s2));
 
         } catch (InvalidPropertiesFormatException e) {
             System.out.println(e);
@@ -38,10 +41,13 @@ public class CsvMapService {
     }
 
     public static Map<String, String> addUser(String[] keys, String[] user) {
-        // try/catch
+        // exceptions?
         Map<String, String> users = new HashMap<>();  // create new map
         for (int i = 0; i < keys.length; i++) {  // loop through all keys
-            if (users.containsKey(keys[i])) continue;
+            if (users.containsKey(keys[i])) {
+                System.out.println(users.get(keys[i]) + " | Duplicate Key Error");
+                continue;
+            }
             users.put(keys[i], user[i]); // put in the map current key with current user
         }
         return users;
@@ -54,3 +60,7 @@ public class CsvMapService {
     }
 
 }
+
+//[Name, 1Name, 1Size, 1Style/Foot, 1Quantity, 1Code, 1Serial Number, 1Thickness (mm), 1Last , 1O/S, 1Season, 1Color, 1H. Height(BP),
+// 1H.Height(Actual), 1Med Height(BP), 1Med Height(Actual), 1Lat Height(BP), 1Lat Height(Actual), 1Collar Apex(BP), 1Collar Apex(Actual),
+// 1Throat Width(BP), 1Throat Width(Actual), 1Vamp Length(BP), 1Vamp Length(Actual), 1Forefoot, 1Midfoot, 1Rearfoot, 1Misc, 1, , , , , , , , ]
