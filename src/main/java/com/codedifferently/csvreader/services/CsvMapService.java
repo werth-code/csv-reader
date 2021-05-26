@@ -2,6 +2,8 @@ package com.codedifferently.csvreader.services;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,11 +13,13 @@ public class CsvMapService {
 
     public static void main(String[] args) throws IOException, CsvException {
 
+        Logger log = LoggerFactory.getLogger(CsvMapService.class);
+
         List<Map<String, String>> allUsers = new ArrayList<>(); // List that contains all of our user maps
 
         //"names 2.csv" // simple test data
         //"test1.csv" // real data with tweaks
-        String fileName = "/Users/m21/dev/csv/testDuplicateHeader.csv"; // this imports a csv list
+        String fileName = "/Users/m21/dev/csv/names 2.csv"; // this imports a csv list
         try (CSVReader reader = new CSVReader(new FileReader(fileName))) {  // CSV Reader plugin
 
             List<String[]> data = reader.readAll(); // What CSV Reader returns to us
@@ -28,24 +32,24 @@ public class CsvMapService {
 
             // remove or limit empty properties?
 
-            System.out.println(Arrays.toString(keys));
+            log.info(Arrays.toString(keys));
             printAllObjects(data);
-            allUsers.forEach(System.out::println); // prints out all of our data
-            System.out.println("\n");
 
-            allUsers.get(allUsers.size() -1).forEach((s, s2) -> System.out.println("Key: " + s + " | Value: " + s2));
+            allUsers.get(allUsers.size() -1).forEach((s, s2) -> log.info("Key: " + s + " | Value: " + s2));
 
         } catch (InvalidPropertiesFormatException e) {
-            System.out.println(e);
+            log.warn(e.toString());
         }
     }
 
     public static Map<String, String> addUser(String[] keys, String[] user) {
-        // exceptions?
+
+        Logger log = LoggerFactory.getLogger(CsvMapService.class);
+
         Map<String, String> users = new HashMap<>();  // create new map
         for (int i = 0; i < keys.length; i++) {  // loop through all keys
             if (users.containsKey(keys[i])) {
-                System.out.println(users.get(keys[i]) + " | Duplicate Key Error");
+                log.error(users.get(keys[i]) + " | Duplicate Key Error");
                 continue;
             }
             users.put(keys[i], user[i]); // put in the map current key with current user
@@ -54,8 +58,9 @@ public class CsvMapService {
     }
 
     public static void printAllObjects(List<String[]> data) {
+        Logger log = LoggerFactory.getLogger(CsvMapService.class);
         for (String[] a : data) {
-            System.out.println(Arrays.toString(a));
+            log.info(Arrays.toString(a));
         }
     }
 
