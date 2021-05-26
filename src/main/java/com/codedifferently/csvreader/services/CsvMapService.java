@@ -19,7 +19,8 @@ public class CsvMapService {
 
         //"names 2.csv" // simple test data
         //"test1.csv" // real data with tweaks
-        String fileName = "/Users/m21/dev/csv/names 2.csv"; // this imports a csv list
+        //dataEmptyHeader.csv // data no header
+        String fileName = "/Users/m21/dev/csv/test1.csv"; // this imports a csv list
         try (CSVReader reader = new CSVReader(new FileReader(fileName))) {  // CSV Reader plugin
 
             List<String[]> data = reader.readAll(); // What CSV Reader returns to us
@@ -33,7 +34,6 @@ public class CsvMapService {
             // remove or limit empty properties?
 
             log.info(Arrays.toString(keys));
-            printAllObjects(data);
 
             allUsers.get(allUsers.size() -1).forEach((s, s2) -> log.info("Key: " + s + " | Value: " + s2));
 
@@ -48,6 +48,10 @@ public class CsvMapService {
 
         Map<String, String> users = new HashMap<>();  // create new map
         for (int i = 0; i < keys.length; i++) {  // loop through all keys
+            if(keys[i].equals("") || user[i].equals("")) {
+                log.error(users.get(keys[i]) + " | Missing Key Error");
+                continue;
+            }
             if (users.containsKey(keys[i])) {
                 log.error(users.get(keys[i]) + " | Duplicate Key Error");
                 continue;
