@@ -1,4 +1,5 @@
 package com.codedifferently.csvreader.services;
+import com.codedifferently.csvreader.models.CSVModel;
 import com.codedifferently.csvreader.models.User;
 import com.codedifferently.csvreader.repositories.UserRepository;
 import com.opencsv.CSVReader;
@@ -33,9 +34,9 @@ public class UploadAnyCsvService {
         return file.isEmpty();
     }
 
-    public List<Map<String, String>> parseCSV(MultipartFile file, Model model) throws IOException, CsvException {
+    public List<CSVModel> parseCSV(MultipartFile file, Model model) throws IOException, CsvException {
         try {
-            List<Map<String, String>> users = new ArrayList<>();
+            List<CSVModel> users = new ArrayList<>();
             CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream())); // CSV Reader plugin
 
             List<String[]> data = reader.readAll();
@@ -48,6 +49,7 @@ public class UploadAnyCsvService {
             }
 
             model.addAttribute("users", users); // add our data List for time leaf
+            model.addAttribute("keys", keys);
             model.addAttribute("status", true);
 
             users.forEach(System.out::println);
@@ -62,23 +64,25 @@ public class UploadAnyCsvService {
             return null;
     }
 
-    public static Map<String, String> addUser(String[] keys, String[] user) {
+    public static CSVModel addUser(String[] keys, String[] user) {
 
         Logger log = LoggerFactory.getLogger(CsvMapService.class);
         Map<String, String> users = new HashMap<>();  // create new map
+        CSVModel csvModel = new CSVModel(users);
 
         for (int i = 0; i < keys.length; i++) {  // loop through all keys
-            if(keys[i].equals("") || user[i].equals("")) {
-                log.error(users.get(keys[i]) + " | Missing Key Error");
-                continue;
-            }
+//            if(keys[i].equals("") || user[i].equals("")) {
+//                log.error(users.get(keys[i]) + " | Missing Key Error");
+//                continue;
+//            }
             if (users.containsKey(keys[i])) {
                 log.error(users.get(keys[i]) + " | Duplicate Key Error");
                 continue;
             }
             users.put(keys[i], user[i]); // put in the map current key with current user
         }
-        return users;
+        csvModel.setProperties(users);
+        return csvModel;
     }
 
 }

@@ -19,24 +19,32 @@
 
                     <!--display users list-->
                     <table class="table table-striped" th:if="${status}">
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th scope="col">#</th>-->
-<!--                            <th scope="col">ID</th>-->
-<!--                            <th scope="col">Name</th>-->
-<!--                            <th scope="col">Email</th>-->
-<!--                            <th scope="col">Country</th>-->
-<!--                            <th scope="col">Age</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
+                        <thead>
+<!--                        <tr th:each="key, value : ${keys}" th:with="user=${key.value}">-->
+<!--                            <th scope="col" th:text="${key}"></th>-->
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Date Shipped</th>
+                            <th scope="col">Date Received</th>
+                            <th scope="col">Style/Foot</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Serial Number</th>
+                        </tr>
+                        </thead>
                         <tbody>
                         <tr th:each="user, i : ${users}">
-                            <th scope="row" th:text="${i.index + 1}"></th>
-                            <td th:text="${user}"></td>
-<!--                            <td th:text="${user.name}"></td>-->
-<!--                            <td th:text="${user.email}"></td>-->
-<!--                            <td th:text="${user.countryCode}"></td>-->
-<!--                            <td th:text="${user.age}"></td>-->
+                            <th scope="row" th:text="${i.index + 1 + ' '}"></th>
+                            <td th:text="${user.getProperties().get('Name')}"></td>
+                            <td th:text="${user.getProperties().get('Size')}"></td>
+                            <td th:text="${user.getProperties().get('Date Shipped')}"></td>
+                            <td th:text="${user.getProperties().get('Date Received')}"></td>
+                            <td th:text="${user.getProperties().get('Style/Foot')}"></td>
+                            <td th:text="${user.getProperties().get('Quantity')}"></td>
+                            <td th:text="${user.getProperties().get('Code')}"></td>
+                            <td th:text="${user.getProperties().get('Serial Number')}"></td>
                         </tr>
                         </tbody>
                     </table>
