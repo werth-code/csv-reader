@@ -45,7 +45,7 @@ public class UploadService {
             List<User> users = csvToBean.parse();
 
             // save users list on model
-            model.addAttribute("users", users);
+            model.addAttribute("users", users); ///////////
             model.addAttribute("status", true);
 
             // save to database

@@ -18,27 +18,25 @@
                 </div>
 
                 <!--display users list-->
+                // for each item in our list.. loop and create this...
                 <table class="table table-striped" th:if="${status}">
                     <thead>
-                    <tr th:each="user, i : ${users}">
+                    <tr th:each="userMap : ${allUsers}">
                         <th scope="row" th:text="${i.index + 1}"></th>
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.name}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.countryCode}"></td>
-                        <td th:text="${user.age}"></td>
+                        <td th:text="${userMap.key}">keyvalue</td>
+                        <td th:text="${userMap.value.name}">name </td>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr th:each="user, i : ${users}">
-                        <th scope="row" th:text="${i.index + 1}"></th>
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.name}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.countryCode}"></td>
-                        <td th:text="${user.age}"></td>
-                    </tr>
-                    </tbody>
+<!--                    <tbody>-->
+<!--                    <tr th:each="user, i : ${users}">-->
+<!--                        <th scope="row" th:text="${i.index + 1}"></th>-->
+<!--                        <td th:text="${user.id}"></td>-->
+<!--                        <td th:text="${user.name}"></td>-->
+<!--                        <td th:text="${user.email}"></td>-->
+<!--                        <td th:text="${user.countryCode}"></td>-->
+<!--                        <td th:text="${user.age}"></td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
                 </table>
             </div>
         </div>

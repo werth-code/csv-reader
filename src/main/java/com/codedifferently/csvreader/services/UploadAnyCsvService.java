@@ -1,5 +1,4 @@
 package com.codedifferently.csvreader.services;
-
 import com.codedifferently.csvreader.models.User;
 import com.codedifferently.csvreader.repositories.UserRepository;
 import com.opencsv.CSVReader;
@@ -14,11 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.util.*;
 
-//@Service
+@Service
 public class UploadAnyCsvService {
 
-    //@Autowired
-    //UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
 
     public String upload(MultipartFile file, Model model) throws IOException, CsvException {
 
@@ -34,23 +33,33 @@ public class UploadAnyCsvService {
         return file.isEmpty();
     }
 
-    public void parseCSV(MultipartFile file, Model model) throws IOException, CsvException {
-        List<Map<String, String>> allUsers = new ArrayList<>();
+    public List<Map<String, String>> parseCSV(MultipartFile file, Model model) throws IOException, CsvException {
+        try {
+            List<Map<String, String>> users = new ArrayList<>();
+            CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream())); // CSV Reader plugin
 
-        CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream())); // CSV Reader plugin
+            List<String[]> data = reader.readAll();
 
-        List<String[]> data = reader.readAll();
+            String[] keys = data.get(0);
 
-        model.addAttribute("users", data); // add our data List for time leaf
-        model.addAttribute("status", true);
+            for (int i = 1; i < data.size(); i++) { // loop through all of the returned CSV data
+                String[] current = data.get(i);    // our current array on this loop
+                users.add(addUser(keys, current)); // add to user list the map returned from function --> calls function
+            }
 
-        String[] keys = data.get(0);
+            model.addAttribute("users", users); // add our data List for time leaf
+            model.addAttribute("status", true);
 
-        for (int i = 1; i < data.size(); i++) { // loop through all of the returned CSV data
-            String[] current = data.get(i);    // our current array on this loop
-            allUsers.add(addUser(keys, current)); // add to user list the map returned from function --> calls function
+            users.forEach(System.out::println);
+
+            return users;
+
+        } catch (Exception e) {
+            System.out.println(e);
+            model.addAttribute("message", "An error occurred while processing the CSV file.");
+            model.addAttribute("status", false);
         }
-
+            return null;
     }
 
     public static Map<String, String> addUser(String[] keys, String[] user) {
@@ -71,13 +80,5 @@ public class UploadAnyCsvService {
         }
         return users;
     }
-
-    public static void printAllObjects(List<String[]> data) {
-        Logger log = LoggerFactory.getLogger(CsvMapService.class);
-        for (String[] a : data) {
-            log.info(Arrays.toString(a));
-        }
-    }
-
 
 }

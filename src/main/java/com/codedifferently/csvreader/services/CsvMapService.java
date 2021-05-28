@@ -4,6 +4,8 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.ui.Model;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -21,6 +23,7 @@ public class CsvMapService {
         //dataEmptyHeader.csv // data no header
         String fileName = "/Users/m21/dev/csv/test1.csv"; // this imports a csv list
         try (CSVReader reader = new CSVReader(new FileReader(fileName))) {  // CSV Reader plugin
+
 
             List<String[]> data = reader.readAll(); // What CSV Reader returns to us
             String[] keys = data.get(0); // From our returned values - take the first String[] - contains keys
