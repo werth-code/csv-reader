@@ -4,7 +4,6 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -31,11 +30,8 @@ public class CsvMapService {
                 allUsers.add(addUser(keys, current)); // add to user list the map returned from function --> calls function
             }
 
-            // remove or limit empty properties?
-
-            log.info(Arrays.toString(keys));
-
-            allUsers.get(allUsers.size() -1).forEach((s, s2) -> log.info("Key: " + s + " | Value: " + s2));
+            //log.info(Arrays.toString(keys)); // log our keys
+            allUsers.get(allUsers.size() -1).forEach((s, s2) -> log.info("Key:  " + s + "  *|*  Value:  " + s2)); // log our mapped properties
 
         } catch (InvalidPropertiesFormatException e) {
             log.warn(e.toString());
@@ -43,10 +39,14 @@ public class CsvMapService {
     }
 
     public static Map<String, String> addUser(String[] keys, String[] user) {
-
         Logger log = LoggerFactory.getLogger(CsvMapService.class);
 
+        if(keys.length == 0 || user.length == 0) { // May not even happen - could all be "" empty strings?
+            log.error("No Values");
+            return null;
+        }
         Map<String, String> users = new HashMap<>();  // create new map
+
         for (int i = 0; i < keys.length; i++) {  // loop through all keys
             if(keys[i].equals("") || user[i].equals("")) {
                 log.error(users.get(keys[i]) + " | Missing Key Error");
