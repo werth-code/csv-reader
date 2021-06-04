@@ -36,11 +36,11 @@ public class UploadAnyCsvService {
 
     public List<CSVModel> parseCSV(MultipartFile file, Model model) throws IOException, CsvException {
         try {
-            List<CSVModel> users = new ArrayList<>();
-            CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream())); // CSV Reader plugin
 
+            CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream())); // CSV Reader plugin
             List<String[]> data = reader.readAll();
 
+            List<CSVModel> users = new ArrayList<>();
             String[] keys = data.get(0);
 
             for (int i = 1; i < data.size(); i++) { // loop through all of the returned CSV data

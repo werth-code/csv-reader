@@ -18,25 +18,42 @@
                 </div>
 
                 <!--display users list-->
-                // for each item in our list.. loop and create this...
                 <table class="table table-striped" th:if="${status}">
                     <thead>
-                    <tr th:each="userMap : ${allUsers}">
-                        <th scope="row" th:text="${i.index + 1}"></th>
-                        <td th:text="${userMap.key}">keyvalue</td>
-                        <td th:text="${userMap.value.name}">name </td>
+                    <!--                        <p th:each="entry: ${users.get(0).getProperties()}">-->
+                    <!--                            <span th:text="'Key: ' + ${entry.key} + ', Value: ' + ${entry.value}"></span>-->
+                    <!--                        </p>-->
+
+                    <!--                        <p th:each="entry: ${users}">-->
+                    <!--                               <p th:each="data: ${entry.getProperties()}">-->
+                    <!--                                <span th:text="'Key: ' + ${entry.key} + ', Value: ' + ${entry.value}"></span>-->
+                    <!--                        </p>-->
+
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Date Shipped</th>
+                        <th scope="col">Date Received</th>
+                        <th scope="col">Style/Foot</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Serial Number</th>
                     </tr>
                     </thead>
-<!--                    <tbody>-->
-<!--                    <tr th:each="user, i : ${users}">-->
-<!--                        <th scope="row" th:text="${i.index + 1}"></th>-->
-<!--                        <td th:text="${user.id}"></td>-->
-<!--                        <td th:text="${user.name}"></td>-->
-<!--                        <td th:text="${user.email}"></td>-->
-<!--                        <td th:text="${user.countryCode}"></td>-->
-<!--                        <td th:text="${user.age}"></td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
+                    <tbody>
+                    <tr th:each="user, i : ${users}">
+                        <th scope="row" th:text="${i.index + 1 + ' '}"></th>
+                        <td th:text="${user.getProperties().get('Name')}"></td>
+                        <td th:text="${user.getProperties().get('Size')}"></td>
+                        <td th:text="${user.getProperties().get('Date Shipped')}"></td>
+                        <td th:text="${user.getProperties().get('Date Received')}"></td>
+                        <td th:text="${user.getProperties().get('Style/Foot')}"></td>
+                        <td th:text="${user.getProperties().get('Quantity')}"></td>
+                        <td th:text="${user.getProperties().get('Code')}"></td>
+                        <td th:text="${user.getProperties().get('Serial Number')}"></td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
